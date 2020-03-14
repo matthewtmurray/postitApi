@@ -53,10 +53,10 @@ const Comment = mongoose.model('Comment',commentSchema);
 
  function createComment(req){
     const comment = new Comment({
-        comment: req.comment,
+        comment: req.body.comment,
         dateTime: Date.now(),
-        userName: req.username,
-        postId: req.postId
+        userName: req.body.userName,
+        postId: req.body.postId
     });
 
     return comment;
