@@ -42,7 +42,31 @@ const Post = mongoose.model('Post',postSchema);
     return post;
 }
 
+const commentSchema = new mongoose.Schema({
+    comment: String,
+    dateTime: Date,
+    userName: String,
+    postId: String
+});
 
+const Comment = mongoose.model('Comment',commentSchema);
+
+ function createComment(req){
+    const comment = new Comment({
+        comment: req.comment,
+        dateTime: Date.now(),
+        userName: req.username,
+        postId: req.postId
+    });
+
+    return comment;
+}
+
+async function getComments(postId){
+    const comments = await Comment
+    .find({postId:postId});
+    return comments;
+}
 
 async function getPosts(){
     const posts = await Post
@@ -69,15 +93,12 @@ app.post('/', async (req,res)=>{
 
 app.post('/comment', async (req,res)=>{
     try {
-        Post.update(
-            {_id : req.body.postId},
-            {$push: { comments : req.body.comment}}
-            );
+        const comment = createComment(req);
 
-        const result = await getPost(req.body.postId);
+        const result = await comment.save();
         res.send(result);
     } catch (error) {
-        res.send("Comment failed to save " + error);
+        res.send("Comment failed to save");
     }
 });
 
