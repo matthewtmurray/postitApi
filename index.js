@@ -108,8 +108,13 @@ app.get('/',async (req,res)=>{
 });
 
 app.get('/:id',async (req,res)=>{
-    let post = await getPost(req.params.id);
-    return res.send(post);
+    let comments = await getComments(req.params.postid);
+    return res.send(comments);
+});
+
+app.get('/comments/:postId',async (req,res)=>{
+    let comments = await getComments(req.params.postid);
+    return res.send(comments);
 });
 
 
