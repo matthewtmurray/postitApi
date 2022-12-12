@@ -18,6 +18,6 @@
   "homepage": "https://github.com/matthewtmurray/GymJamApi#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "mongoose": "^5.8.11"
+    "mongoose": "^5.13.15"
   }
 }
